@@ -10,9 +10,10 @@ public class Rout {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private double rate;
+
     private Region region;
 
     public String getName() {

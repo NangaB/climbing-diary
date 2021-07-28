@@ -18,6 +18,7 @@ public class Climber {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rout> routList = new ArrayList<>();
 
+
     public Long getId() {
         return id;
     }

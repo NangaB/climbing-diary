@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr th:each="r : ${allRouts}">
+    <td th:text="${r.name}"></td>
+    <td th:text="${r.rate}"></td>
+    <td th:text="${r.region}"></td>
+</tr>
+
+<form action="/addRout" method="post">
+    <input th:type="text" name="name" value="Nazwa drogi">
+    <input th:type="text" name="rate" value="Wycena">
+    <input th:type="text" name="region" value="Region">
+    <input type="submit" value="Dodaj">
+</form>
+
+</body>
+</html>
