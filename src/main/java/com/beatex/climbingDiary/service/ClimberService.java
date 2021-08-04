@@ -28,5 +28,15 @@ public class ClimberService {
         climberRepository.save(climber);
     }
 
+    public Climber getClimberByName(String name){
+        return climberRepository.getClimberByName(name);
+    }
+
+    public void addRoutForClimber(Long id, Rout rout){
+        Climber c = climberRepository.getClimberById(id);
+        c.addRoutForClimber(rout);
+        climberRepository.save(c);
+    }
+
 
 }

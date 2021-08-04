@@ -1,33 +1,54 @@
 package com.beatex.climbingDiary.controllers;
 
-import com.beatex.climbingDiary.model.RegistrationForm;
-import com.beatex.climbingDiary.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.beatex.climbingDiary.model.Climber;
+import com.beatex.climbingDiary.model.User;
+import com.beatex.climbingDiary.service.ClimberService;
+import com.beatex.climbingDiary.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
-@RequestMapping("/register")
 public class RegistrationController {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+    private ClimberService climberService;
 
-    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    public RegistrationController(UserService userService, ClimberService climberService) {
+        this.userService = userService;
+        this.climberService = climberService;
     }
 
-    @GetMapping
+//    Here is start
+    @GetMapping("/home")
+    public String user(){
+        return "home";
+    }
+
+    @GetMapping("/register")
     public String registerForm(){
         return "registration";
     }
 
-    @PostMapping()
-    public String processRegistration(RegistrationForm form){
-        userRepository.save(form.toUser(passwordEncoder));
+    @PostMapping("/register")
+    public String processRegistration(User user){
+        userService.addUser(user);
+        //every user is a climber - creating climber
+        Climber climber = new Climber();
+        climber.setName(user.getUsername());
+        climberService.addClimber(climber);
         return "redirect:/login";
     }
+
+    @GetMapping("/hello")
+    public String login(Model model, Principal principal){
+        model.addAttribute("name", principal.getName());
+        return "hello";
+    }
+
+
+
 }

@@ -25,9 +25,4 @@ public class RoutService {
     public void addRout(Rout rout){
         routRepository.save(rout);
     }
-
-    public void addRoutForClimber(Rout rout){
-        Long climberId = 1L;
-        climberRepository.getClimberById(climberId).getRoutList().add(rout);
-    }
 }

@@ -1,5 +1,6 @@
 package com.beatex.climbingDiary.model;
 
+
 public enum Region {
 
     SLONECZNE_SKALY("Słoneczne_skały"),
@@ -10,5 +11,9 @@ public enum Region {
 
     Region(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

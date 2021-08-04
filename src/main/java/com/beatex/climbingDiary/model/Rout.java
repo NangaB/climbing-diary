@@ -12,7 +12,7 @@ public class Rout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private double rate;
+    private String rate;
 
     private Region region;
 
@@ -24,11 +24,11 @@ public class Rout {
         this.name = name;
     }
 
-    public double getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

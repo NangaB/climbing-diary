@@ -1,6 +1,5 @@
 package com.beatex.climbingDiary.service;
 
-import com.beatex.climbingDiary.model.CustomUserDetails;
 import com.beatex.climbingDiary.model.User;
 import com.beatex.climbingDiary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByUsername(s);
-        optionalUser.orElseThrow(() -> new UsernameNotFoundException("username not found"));
-        return optionalUser.map(CustomUserDetails::new).get();
+        return optionalUser.orElseThrow(() -> new UsernameNotFoundException("username not found"));
     }
 }

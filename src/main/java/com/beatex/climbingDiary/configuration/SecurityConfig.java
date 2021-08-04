@@ -61,8 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-//                .userDetailsService(userDetailsService)
-                .userDetailsService(customUserDetailsService)
+                .userDetailsService(customUserDetailsService) //info że to customerDetailService dostarcza info o userach
                 .passwordEncoder(getEncoder());
 
     }
@@ -71,15 +70,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/routsClimber")
-                .access("hasRole('ROLE_USER')")
-                .antMatchers("/" , "/**").access("permitAll()")
+                .antMatchers("/").authenticated()
+//                .antMatchers("/for-user").hasRole("USER")
+//                .antMatchers("/for-admin").hasRole("ADMIN")
+                .anyRequest().permitAll()
+
+//                .loginPage("/login")
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/");
+                .formLogin().defaultSuccessUrl("/hello"); // to się wyświetla po zalogowaniu
+
 
 //                .authorizeRequests()
 //                .antMatchers("**/secured/**")
@@ -91,7 +90,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getEncoder(){
-//        return new StandardPasswordEncoder("53cr3t");
             return new BCryptPasswordEncoder();
     }
 

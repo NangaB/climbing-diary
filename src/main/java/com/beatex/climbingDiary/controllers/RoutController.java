@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -36,9 +37,18 @@ public class RoutController {
         return "routs";
     }
 
+    @GetMapping("/addRoutt")
+    public String addRout(Model model){
+        Rout rout = new Rout();
+        model.addAttribute("rout", rout);
+        return "hello";
+    }
+
     @PostMapping("/addRout")
     public String addRout(@ModelAttribute Rout rout){
         routService.addRout(rout);
         return "redirect:/routs";
     }
+
+
 }

@@ -50,4 +50,8 @@ public class Climber {
     public void setRoutList(List<Rout> routList) {
         this.routList = routList;
     }
+
+    public void addRoutForClimber(Rout rout){
+        routList.add(rout);
+    }
 }
