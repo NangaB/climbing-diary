@@ -2,6 +2,7 @@ package com.beatex.climbingDiary.service;
 
 import com.beatex.climbingDiary.model.Climber;
 import com.beatex.climbingDiary.model.Rout;
+import com.beatex.climbingDiary.model.RoutClimber;
 import com.beatex.climbingDiary.repository.ClimberRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class ClimberService {
         return climberRepository.findAll();
     }
 
-    public List<Rout> getAllRoutsForClimber(Long id){
-        return climberRepository.getClimberById(id).getRoutList();
+    public List<RoutClimber> getAllRoutsForClimber(Long id){
+        return climberRepository.getClimberById(id).getRouts();
     }
 
     public void addClimber(Climber climber){
@@ -32,11 +33,9 @@ public class ClimberService {
         return climberRepository.getClimberByName(name);
     }
 
-    public void addRoutForClimber(Long id, Rout rout){
+    public void addRoutForClimber(Long id, RoutClimber rout){
         Climber c = climberRepository.getClimberById(id);
-        c.addRoutForClimber(rout);
+        c.addRout(rout);
         climberRepository.save(c);
     }
-
-
 }

@@ -6,6 +6,22 @@
 </head>
 <body>
 
+<div th:if="${info != null}">
+    <p th:text="${info}"></p>
+</div>
+
+<form th:action="@{/addRout}" method="post">
+    <input th:type="text" name="name" placeholder="Nazwa drogi">
+    <input th:type="text" name="rate" placeholder="Wycena drogi">
+    <select name="region">
+        <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
+                th:value="${region}" th:text="${region.name}"></option>
+    </select>
+    <input type="submit" value="Dodaj">
+
+</form>
+
+
 <tr th:each="r : ${routs}">
     <td th:text="${r.name}"></td>
     <td th:text="${r.rate}"></td>

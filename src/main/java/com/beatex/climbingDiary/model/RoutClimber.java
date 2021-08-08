@@ -5,26 +5,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Rout {
+public class RoutClimber{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String rate;
 
     @Enumerated(EnumType.STRING)
     private Region region;
 
-    // tego nie było w pierwszej wersji
+    private String info;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "climber_rout",
+            joinColumns = @JoinColumn(name = "routClimber_id"),
+            inverseJoinColumns = @JoinColumn(name = "climber_id"))
+    private List<Climber> climber = new ArrayList<>();
 
-    // w 3-ciej też nie będzie
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "climber_rout",
-//    joinColumns = @JoinColumn(name = "rout_id"),
-//    inverseJoinColumns = @JoinColumn(name = "climber_id"))
-//    private List<Climber> climbers = new ArrayList<>();
+    public RoutClimber() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -42,6 +53,14 @@ public class Rout {
         this.rate = rate;
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public Region getRegion() {
         return region;
     }
@@ -49,12 +68,4 @@ public class Rout {
     public void setRegion(Region region) {
         this.region = region;
     }
-
-//    public List<Climber> getClimbers() {
-//        return climbers;
-//    }
-//
-//    public void setClimbers(List<Climber> climbers) {
-//        this.climbers = climbers;
-//    }
 }

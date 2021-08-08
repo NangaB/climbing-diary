@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Climbing diary</title>
-
 </head>
 <body>
-
-<h1>Witaj w dzienniku wspinaczkowym</h1>
+<div class="container">
+    <div class="grid">
+        <div th:replace="header::mojHeader"></div>
+    </div>
+</div>
 
 <div th:if="${error}">
     Unable to login. Check your username and password.

@@ -15,8 +15,14 @@ public class Climber {
 
     private int age;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Rout> routList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "climber_id")
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "climber_rout",
+    joinColumns = @JoinColumn(name = "climber_id"),
+    inverseJoinColumns = @JoinColumn(name = "routClimber_id"))
+    private List<RoutClimber> routs = new ArrayList<>();
 
 
     public Long getId() {
@@ -43,15 +49,15 @@ public class Climber {
         this.age = age;
     }
 
-    public List<Rout> getRoutList() {
-        return routList;
+    public List<RoutClimber> getRouts() {
+        return routs;
     }
 
-    public void setRoutList(List<Rout> routList) {
-        this.routList = routList;
+    public void setRouts(List<RoutClimber> routs) {
+        this.routs = routs;
     }
 
-    public void addRoutForClimber(Rout rout){
-        routList.add(rout);
+    public void addRout(RoutClimber rout){
+        routs.add(rout);
     }
 }

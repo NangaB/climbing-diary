@@ -8,47 +8,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class RoutController {
 
     private RoutService routService;
-    private ClimberService climberService;
 
-    public RoutController(RoutService routService, ClimberService climberService) {
+    public RoutController(RoutService routService) {
         this.routService = routService;
-        this.climberService = climberService;
     }
 
     @GetMapping("/routs")
     public String getAllRouts(Model model){
         model.addAttribute("allRouts", routService.allRouts());
-        return "allRouts";
-    }
-
-    @GetMapping("/routsClimber")
-    public String getAllRoutsForClimber(Model model){
-        Long id = 1L; // TU Wróć - to jest id dla akutalnie zalogowanego uzytkownika/climbera
-        List<Rout> routs = climberService.getAllRoutsForClimber(id);
-        model.addAttribute("routs", routs);
         return "routs";
     }
 
-    @GetMapping("/addRoutt")
-    public String addRout(Model model){
+    //access only for admin
+    @GetMapping("/addRout")
+    public String addRout(Model model, @RequestParam(required = false) String info){
         Rout rout = new Rout();
         model.addAttribute("rout", rout);
-        return "hello";
+        if(info != null){
+            model.addAttribute("info", info);
+        }
+        model.addAttribute("routs", routService.allRouts());
+        return "routs";
     }
 
     @PostMapping("/addRout")
     public String addRout(@ModelAttribute Rout rout){
         routService.addRout(rout);
-        return "redirect:/routs";
+        return "redirect:/addRout?info=Dodano nową drogę w rejonie " + rout.getRegion();
     }
-
-
 }
