@@ -26,10 +26,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         userRepository.save(user);
+        System.out.println(user.getId());
     }
 
     public Role getRole(String username){
         Optional<User> optionalUser = userRepository.findByUsername(username);
         return optionalUser.orElseThrow(()->new UsernameNotFoundException("User not found")).getRole();
     }
+
+
 }

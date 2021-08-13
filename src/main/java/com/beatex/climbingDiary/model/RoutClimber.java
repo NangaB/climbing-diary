@@ -13,7 +13,7 @@ public class RoutClimber{
 
     private String name;
 
-    private String rate;
+    private Rate rate;
 
     @Enumerated(EnumType.STRING)
     private Region region;
@@ -45,11 +45,11 @@ public class RoutClimber{
         this.name = name;
     }
 
-    public String getRate() {
+    public Rate getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Rate rate) {
         this.rate = rate;
     }
 

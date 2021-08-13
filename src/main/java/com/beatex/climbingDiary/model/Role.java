@@ -1,19 +1,11 @@
 package com.beatex.climbingDiary.model;
 
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-
-@Entity
-@Table(name = "role")
 public enum Role {
 
     USER(1, "USER"),
     ADMIN(2,"ADMIN"),
     MODERATOR(3,"MODERATOR");
 
-    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private int roleId;
     private String role;
 
@@ -21,10 +13,6 @@ public enum Role {
     Role(int roleId, String role) {
         this.roleId = roleId;
         this.role = role;
-    }
-
-    Role() {
-
     }
 
     public int getRoleId() {

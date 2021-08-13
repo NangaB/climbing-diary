@@ -3,6 +3,7 @@ package com.beatex.climbingDiary.controllers;
 import com.beatex.climbingDiary.model.Climber;
 import com.beatex.climbingDiary.model.RoutClimber;
 import com.beatex.climbingDiary.service.ClimberService;
+import com.beatex.climbingDiary.service.RankingService;
 import com.beatex.climbingDiary.service.RoutClimberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,17 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ClimberController {
 
     private ClimberService climberService;
     private RoutClimberService routClimberService;
+    private RankingService rankingService;
 
     public ClimberController(ClimberService climberService, RoutClimberService routClimberService) {
         this.climberService = climberService;
         this.routClimberService = routClimberService;
-
     }
 
     @GetMapping("/getAllClimbers")
@@ -39,23 +41,24 @@ public class ClimberController {
 
     @PostMapping("/addRoutForClimber")
     public String routForClimber(RoutClimber rout, Principal principal){
-        String name = principal.getName();
-        if(name == null){
-            System.out.println("NAME is Null");
-            return "abc";
-        }
         routClimberService.addRoutClimber(rout);
-        Climber climber = climberService.getClimberByName(name);
-        climberService.addRoutForClimber(climber.getId(), rout);
-        return "abc";
+        Long climberId = climberService.getClimberIdByPrincipal(principal);
+        climberService.addRoutForClimber(climberId, rout);
+        return "redirect:/hello";
     }
 
-    @GetMapping("/showDiary")
-    public String getClimberRouts(Model model, Principal principal){
-        Climber climber = climberService.getClimberByName(principal.getName());
-        List<RoutClimber> routList = climberService.getAllRoutsForClimber(climber.getId());
-        model.addAttribute("routsClimber", routList);
-        System.out.println(routList);
+    @GetMapping("/getRoutsForClimber") //almost not used
+    public String getRoutsForClimber(Model model, Principal principal){
+        Long climberId = climberService.getClimberIdByPrincipal(principal);
+        List<RoutClimber> rc = climberService.getAllRoutsForClimber(climberId);
+        model.addAttribute("climberRouts", rc);
+        return "redirect:/hello";
+    }
+
+    @GetMapping("/getRanking") //almost not used
+    public String getRanking(Model model){
+        Map<String, Integer> ranking = rankingService.getRanking();
+        model.addAttribute("ranking", ranking);
         return "redirect:/hello";
     }
 

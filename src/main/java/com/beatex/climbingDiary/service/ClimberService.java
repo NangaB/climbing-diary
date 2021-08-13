@@ -3,9 +3,11 @@ package com.beatex.climbingDiary.service;
 import com.beatex.climbingDiary.model.Climber;
 import com.beatex.climbingDiary.model.Rout;
 import com.beatex.climbingDiary.model.RoutClimber;
+import com.beatex.climbingDiary.model.User;
 import com.beatex.climbingDiary.repository.ClimberRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -21,8 +23,8 @@ public class ClimberService {
         return climberRepository.findAll();
     }
 
-    public List<RoutClimber> getAllRoutsForClimber(Long id){
-        return climberRepository.getClimberById(id).getRouts();
+    public List<RoutClimber> getAllRoutsForClimber(Long climberId){
+        return climberRepository.getClimberById(climberId).getRouts();
     }
 
     public void addClimber(Climber climber){
@@ -33,9 +35,17 @@ public class ClimberService {
         return climberRepository.getClimberByName(name);
     }
 
-    public void addRoutForClimber(Long id, RoutClimber rout){
-        Climber c = climberRepository.getClimberById(id);
-        c.addRout(rout);
-        climberRepository.save(c);
+    public Climber getClimberById(Long id){
+        return climberRepository.getClimberById(id);
+    }
+
+    public Long getClimberIdByPrincipal(Principal principal){
+        return climberRepository.getClimberIdByName(principal.getName());
+    }
+
+    public void addRoutForClimber(Long climberId, RoutClimber rout){
+        Climber climber = climberRepository.getClimberById(climberId);
+        climber.addRout(rout);
+        climberRepository.save(climber);
     }
 }

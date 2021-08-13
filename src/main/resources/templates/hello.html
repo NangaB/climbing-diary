@@ -19,17 +19,13 @@
         <h4>Co Cię tu dziś sprowadza?</h4>
 
         <p>Chcę dodać drogę którą przeszedłem</p>
-            <button class="btn btn-primary" onclick="showSth2()">DODAJ</button>
+            <button class="btn btn-primary" onclick="showSth1()">DODAJ</button>
 
         <p>Pokaż mój dzinnik wspinaczkowy</p>
-            <a class="btn btn-primary" th:href="@{/showDiary}">POKAŻ</a>
+            <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
 
         <p>Pokaż moje miejsce w rankingu</p>
-            <button class="btn btn-primary" onclick="showSth()">POKAŻ</button>
-
-            <div style="display:none" id="myDiv">
-            <p>To ja beata</p>
-            </div>
+            <button class="btn btn-primary" onclick="showSth3()">POKAŻ</button>
 
             <div th:if="${role == 'ADMIN'}">
                 <p>Dodaj nową drogę do zestawienia</p>
@@ -45,8 +41,8 @@
                 <select name="name">
                     <option th:each="n : ${allRouts}" th:value="${n.name}" th:text="${n.name}"></option>
                 </select>
-                <select name="">
-                    <option th:each="n : ${allRouts}" th:value="${n.rate}" th:text="${n.rate}"></option>
+                <select name="rate">
+                    <option th:each="n : ${allRouts}" th:value="${n.rate}" th:text="${n.rate.getName()}"></option>
                 </select>
                 <select name="region">
                     <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
@@ -55,8 +51,7 @@
                 <input type="submit" value="Dodaj">
             </form>
 
-            <div style="display:none" id="showDiary">
-<!--                <a th:href="@{/showDiary}">POKAZ DROGE</a>-->
+            <div style="display: none" id="showDiary">
                 <div th:unless="${#lists.isEmpty(routsClimber)}">
                     <table>
                         <thead>
@@ -76,6 +71,24 @@
                 </div>
             </div>
 
+            <div style="display: none" id="ranking">
+                <div th:unless="${ranking.isEmpty()}">
+               <table>
+                   <thead>
+                        <td>Numer</td>
+                        <td>Imie wspinacza</td>
+                        <td>Liczba punktów</td>
+                   </thead>
+                   <tbody>
+                        <tr th:each="entry, stat : ${ranking}">
+                            <td th:text="${stat.index + 1}">1</td>
+                            <td th:text="${entry.key}">Imie</td>
+                            <td th:text="${entry.value}">000</td>
+                        </tr>
+                   </tbody>
+               </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

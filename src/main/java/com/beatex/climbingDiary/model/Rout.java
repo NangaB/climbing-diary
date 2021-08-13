@@ -1,8 +1,7 @@
 package com.beatex.climbingDiary.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 public class Rout {
@@ -11,20 +10,12 @@ public class Rout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String rate;
+
+    @Enumerated(EnumType.STRING)
+    private Rate rate;
 
     @Enumerated(EnumType.STRING)
     private Region region;
-
-    // tego nie było w pierwszej wersji
-
-
-    // w 3-ciej też nie będzie
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "climber_rout",
-//    joinColumns = @JoinColumn(name = "rout_id"),
-//    inverseJoinColumns = @JoinColumn(name = "climber_id"))
-//    private List<Climber> climbers = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -34,11 +25,11 @@ public class Rout {
         this.name = name;
     }
 
-    public String getRate() {
+    public Rate getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Rate rate) {
         this.rate = rate;
     }
 
@@ -50,11 +41,4 @@ public class Rout {
         this.region = region;
     }
 
-//    public List<Climber> getClimbers() {
-//        return climbers;
-//    }
-//
-//    public void setClimbers(List<Climber> climbers) {
-//        this.climbers = climbers;
-//    }
 }

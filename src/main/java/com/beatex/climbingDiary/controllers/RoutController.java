@@ -38,6 +38,7 @@ public class RoutController {
         return "routs";
     }
 
+    //acces only for admin
     @PostMapping("/addRout")
     public String addRout(@ModelAttribute Rout rout){
         routService.addRout(rout);

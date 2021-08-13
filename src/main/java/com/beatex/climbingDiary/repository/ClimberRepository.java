@@ -14,4 +14,7 @@ public interface ClimberRepository extends JpaRepository<Climber, Long> {
     @Query(value = "select c from Climber c where c.name = :name" )
     Climber getClimberByName(String name);
 
+    @Query(value = "select c.id from Climber c where c.name =:name")
+    Long getClimberIdByName(String name);
+
 }
