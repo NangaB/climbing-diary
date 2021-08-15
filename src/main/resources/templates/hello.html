@@ -11,25 +11,25 @@
 <div class="container">
     <div class="grid">
 
-        <div th:replace="header::mojHeader"></div>
+        <div th:replace="header::myHeader"></div>
 
         <div class="box1">
-        <h2>Cześć</h2> <h2 th:text="${name}"></h2>
+            <h2 th:text="'Cześć ' + ${name}"></h2>
 
-        <h4>Co Cię tu dziś sprowadza?</h4>
+            <h4>Co Cię tu dziś sprowadza?</h4>
 
-        <p>Chcę dodać drogę którą przeszedłem</p>
-            <button class="btn btn-primary" onclick="showSth1()">DODAJ</button>
+            <p>Chcę dodać drogę którą przeszedłem</p>
+                <button class="btn btn-primary" onclick="showSth1()">DODAJ</button>
 
-        <p>Pokaż mój dzinnik wspinaczkowy</p>
-            <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
+            <p>Pokaż mój dzinnik wspinaczkowy</p>
+                <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
 
-        <p>Pokaż moje miejsce w rankingu</p>
-            <button class="btn btn-primary" onclick="showSth3()">POKAŻ</button>
+            <p>Pokaż moje miejsce w rankingu</p>
+                <button class="btn btn-primary" onclick="showSth3()">POKAŻ</button>
 
             <div th:if="${role == 'ADMIN'}">
                 <p>Dodaj nową drogę do zestawienia</p>
-                <a class="btn btn-primary" href="/addRout" role="button">DODAJ</a>
+                    <a class="btn btn-primary" href="/addRout" role="button">DODAJ</a>
             </div>
 
         </div>
@@ -37,19 +37,23 @@
             <div th:if="${info != null}">
                 <p th:text="${info}"></p>
             </div>
-            <form th:action="@{/addRoutForClimber}" method="post" style="display:none" id="addForm">
-                <select name="name">
-                    <option th:each="n : ${allRouts}" th:value="${n.name}" th:text="${n.name}"></option>
-                </select>
-                <select name="rate">
-                    <option th:each="n : ${allRouts}" th:value="${n.rate}" th:text="${n.rate.getName()}"></option>
-                </select>
+
+            <form th:action="@{/routsForRegion}" style="display:none" id="addForm">
                 <select name="region">
                     <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
                             th:value="${region}" th:text="${region.name}"></option>
                 </select>
-                <input type="submit" value="Dodaj">
+                <input type="submit" value="Pokaż drogi w regionie">
             </form>
+
+            <form th:action="@{/addRoutForClimber}" method="post">
+                <input type="hidden" name="region" th:value="${region}">
+                <select name="name">
+                    <option th:each="n : ${routsByRegion}" th:value="${n.name}" th:text="${n.name}"></option>
+                </select>
+                <input type="submit" value="Dodaj drogę">
+            </form>
+
 
             <div style="display: none" id="showDiary">
                 <div th:unless="${#lists.isEmpty(routsClimber)}">
@@ -75,9 +79,9 @@
                 <div th:unless="${ranking.isEmpty()}">
                <table>
                    <thead>
-                        <td>Numer</td>
-                        <td>Imie wspinacza</td>
-                        <td>Liczba punktów</td>
+                        <th>Numer</th>
+                        <th>Imie wspinacza</th>
+                        <th>Liczba punktów</th>
                    </thead>
                    <tbody>
                         <tr th:each="entry, stat : ${ranking}">

@@ -7,25 +7,29 @@
 <body>
 <div class="container">
     <div class="grid">
-        <div th:replace="header::mojHeader"></div>
+
+        <div th:replace="header::myHeader">
+
+        </div>
+
+        <div th:if="${error}">
+            Unable to login. Check your username and password.
+        </div>
+        <p>New here? Click
+            <a th:href="@{/register}">here</a> to register</p><br>
+
+        <p>Log in</p>
+        <form th:action="@{/login}" method="post" id="loginForm">
+        <!--    login jest defaultowo w Springu - tak musi zostać, choć nie mam /login-->
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username">
+            <label for="password">Hasło: </label>
+            <input type="password" name="password" id="password">
+            <input type="submit" value="Login">
+        </form>
+
     </div>
 </div>
-
-<div th:if="${error}">
-    Unable to login. Check your username and password.
-</div>
-<p>New here? Click
-    <a th:href="@{/register}">here</a> to register</p><br>
-
-<p>Log in</p>
-<form th:action="@{/login}" method="post" id="loginForm">
-<!--    login jest defaultowo w Springu - tak musi zostać, choć nie mam /login-->
-    <label for="username">Username: </label>
-    <input type="text" name="username" id="username">
-    <label for="password">Hasło: </label>
-    <input type="password" name="password" id="password">
-    <input type="submit" value="Login">
-</form>
 
 </body>
 </html>

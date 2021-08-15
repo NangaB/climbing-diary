@@ -13,10 +13,11 @@ public class RoutClimber{
 
     private String name;
 
-    private Rate rate;
-
     @Enumerated(EnumType.STRING)
     private Region region;
+
+    @Enumerated(EnumType.STRING)
+    private Rate rate;
 
     private String info;
 

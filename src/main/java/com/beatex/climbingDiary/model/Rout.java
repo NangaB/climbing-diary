@@ -12,10 +12,13 @@ public class Rout {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Rate rate;
+    private Region region;
 
     @Enumerated(EnumType.STRING)
-    private Region region;
+    private Rate rate;
+
+    public Rout() {
+    }
 
     public String getName() {
         return name;
@@ -40,5 +43,4 @@ public class Rout {
     public void setRegion(Region region) {
         this.region = region;
     }
-
 }

@@ -2,18 +2,23 @@ package com.beatex.climbingDiary.model;
 
 
 public enum Region {
-
     SLONECZNE_SKALY("Słoneczne_skały"),
-    DOLINA_BOLECHOWICKA("Dolina_Bolechowicka"),
-    DOLINA_BRZOSKWINI("Dolina_Brzoskwini");
+    DOLINA_BOLECHOWICE("Dolina_Bolechowicka"),
+    DOLINA_KOBYLANSKA("Dolina_Kobylańska"),
+    DOLINA_BEDKOWSKA("Dolina_Będkowska");
 
-    private String name;
+    private String regionName;
 
-    Region(String name) {
-        this.name = name;
+    Region(String regionName) {
+        this.regionName = regionName;
     }
 
-    public String getName() {
-        return name;
+    public String getRegionName() {
+        return regionName;
     }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
 }

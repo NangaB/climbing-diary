@@ -1,5 +1,7 @@
 package com.beatex.climbingDiary.service;
 
+import com.beatex.climbingDiary.model.Rate;
+import com.beatex.climbingDiary.model.Region;
 import com.beatex.climbingDiary.model.Rout;
 import com.beatex.climbingDiary.repository.ClimberRepository;
 import com.beatex.climbingDiary.repository.RoutRepository;
@@ -20,6 +22,15 @@ public class RoutService {
 
     public List<Rout> allRouts(){
         return routRepository.findAll();
+    }
+
+    public List<Rout> getRoutsByRegion(Region region){
+        return routRepository.findRoutByRegion(region);
+    }
+
+    public Rate getRateByRoutName(String routName){
+        System.out.println(routRepository.getRateByName(routName));
+        return routRepository.getRateByName(routName);
     }
 
     public void addRout(Rout rout){

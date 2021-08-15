@@ -1,9 +1,6 @@
 package com.beatex.climbingDiary.controllers;
 
-import com.beatex.climbingDiary.model.Climber;
-import com.beatex.climbingDiary.model.Role;
-import com.beatex.climbingDiary.model.RoutClimber;
-import com.beatex.climbingDiary.model.User;
+import com.beatex.climbingDiary.model.*;
 import com.beatex.climbingDiary.service.ClimberService;
 import com.beatex.climbingDiary.service.RankingService;
 import com.beatex.climbingDiary.service.RoutService;
@@ -14,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -57,11 +55,15 @@ public class RegistrationController {
     }
 
     @GetMapping("/hello")
-    public String hello(Model model, Principal principal){
+    public String hello(Model model, Principal principal, @RequestParam(required = false) Region region ){
         Role role = userService.getRole(principal.getName());
         model.addAttribute("role", role.getRole());
         model.addAttribute("name", principal.getName());
 
+        model.addAttribute("region", region);
+        model.addAttribute("routsByRegion", routService.getRoutsByRegion(region));
+
+        //only for admin
         model.addAttribute("allRouts", routService.allRouts());
 
         Long climberId = climberService.getClimberIdByPrincipal(principal);
