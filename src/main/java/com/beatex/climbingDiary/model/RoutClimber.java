@@ -21,7 +21,7 @@ public class RoutClimber{
 
     private String info;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "climber_rout",
             joinColumns = @JoinColumn(name = "routClimber_id"),
             inverseJoinColumns = @JoinColumn(name = "climber_id"))

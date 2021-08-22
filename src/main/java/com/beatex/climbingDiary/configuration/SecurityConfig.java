@@ -1,5 +1,6 @@
 package com.beatex.climbingDiary.configuration;
 
+import com.beatex.climbingDiary.model.Role;
 import com.beatex.climbingDiary.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,13 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").authenticated()
-//                .antMatchers("/").hasRole("USER")
+                .antMatchers("/addRout").hasRole("ADMIN")
 //                .antMatchers("/for-admin").hasRole("ADMIN")
                 .anyRequest().permitAll()
 
 //                .loginPage("/login")
                 .and()
-                .formLogin().defaultSuccessUrl("/hello"); // to się wyświetla po zalogowaniu
+                .formLogin().defaultSuccessUrl("/hello") // to się wyświetla po zalogowaniu
+                .failureForwardUrl("/login");
 
 
 //                .authorizeRequests()

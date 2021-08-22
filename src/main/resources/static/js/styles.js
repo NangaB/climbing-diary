@@ -2,9 +2,10 @@ function showSth1() {
     var x = document.getElementById('addForm');
     if(x.style.display === 'none'){
         x.style.display = 'block'; // tj. właściwości elementu
-    } else {
-        x.style.display = 'none'; // tj. znika
     }
+    // else {
+    //     x.style.display = 'none'; // tj. znika
+    // }
 }
 
 function showSth2() {

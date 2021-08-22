@@ -19,40 +19,54 @@
             <h4>Co Cię tu dziś sprowadza?</h4>
 
             <p>Chcę dodać drogę którą przeszedłem</p>
-                <button class="btn btn-primary" onclick="showSth1()">DODAJ</button>
+                <a class="btn btn-primary" th:href="@{/flag}">DODAJ</a>
 
             <p>Pokaż mój dzinnik wspinaczkowy</p>
                 <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
 
             <p>Pokaż moje miejsce w rankingu</p>
                 <button class="btn btn-primary" onclick="showSth3()">POKAŻ</button>
-
+            <br>
             <div th:if="${role == 'ADMIN'}">
                 <p>Dodaj nową drogę do zestawienia</p>
-                    <a class="btn btn-primary" href="/addRout" role="button">DODAJ</a>
+                    <a class="btn btn-primary" th:href="@{/addRout}">DODAJ</a>
+            </div>
+            <br>
+            <div>
+                <a class="btn btn-primary" th:href="@{/logout}">WYLOGUJ</a>
             </div>
 
         </div>
         <div class="box2">
-            <div th:if="${info != null}">
-                <p th:text="${info}"></p>
-            </div>
-
-            <form th:action="@{/routsForRegion}" style="display:none" id="addForm">
+            <div th:if="${flag}">
+            <div id="addForm">
+                <h2>Dodaj drogę</h2>
+            <form th:action="@{/routsForRegion}">
                 <select name="region">
                     <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
                             th:value="${region}" th:text="${region.name}"></option>
                 </select>
-                <input type="submit" value="Pokaż drogi w regionie">
+                <input type="submit" value="Wybierz drogi w regionie">
             </form>
+            </div>
 
+<!--            <div id="addForm2" style="display:none">-->
             <form th:action="@{/addRoutForClimber}" method="post">
+                <p>Droga do dodania: </p>
                 <input type="hidden" name="region" th:value="${region}">
+                <p th:text="${region}"></p>
                 <select name="name">
                     <option th:each="n : ${routsByRegion}" th:value="${n.name}" th:text="${n.name}"></option>
                 </select>
+<!--                <input type="text" name="info" placeholder="Wpisz swoje notatki">-->
                 <input type="submit" value="Dodaj drogę">
             </form>
+            </div>
+
+            <div th:if="${rout != null}">
+            <h3>Dodano drogę</h3>
+            </div>
+            </div>
 
 
             <div style="display: none" id="showDiary">
@@ -62,12 +76,16 @@
                             <th>Name</th>
                             <th>Rate</th>
                             <th>Region</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                             <tr th:each="r : ${routsClimber}">
                                 <td th:text="${r.name}"></td>
-                                <td th:text="${r.rate}"></td>
-                                <td th:text="${r.getRegion()}"></td>
+                                <td th:text="${r.rate.getRateName()}"></td>
+                                <td th:text="${r.region}"></td>
+                                <td>
+                                    <a th:href="@{/update(id=${r.id})}">Update</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,7 +94,7 @@
             </div>
 
             <div style="display: none" id="ranking">
-                <div th:unless="${ranking.isEmpty()}">
+<!--                <div th:unless="${ranking.isEmpty()}">-->
                <table>
                    <thead>
                         <th>Numer</th>
@@ -91,7 +109,7 @@
                         </tr>
                    </tbody>
                </table>
-                </div>
+<!--                </div>-->
             </div>
         </div>
     </div>

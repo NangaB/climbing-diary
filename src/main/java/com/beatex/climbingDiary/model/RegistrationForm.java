@@ -13,9 +13,6 @@ public class RegistrationForm {
     private String password;
 
     public User toUser(PasswordEncoder passwordEncoder){
-//        Set<Role> roles = new HashSet<>();
-//        Role role = new Role("USER");
-//        roles.add(Role.USER);
         return new User(username, passwordEncoder.encode(password), Role.USER);
     }
 }

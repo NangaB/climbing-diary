@@ -2,31 +2,72 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Climbing diary</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <script th:src="@{/js/styles.js}" type="text/javascript"></script>
 </head>
 <body>
+    <div class="container">
 
-<div th:if="${info != null}">
-    <p th:text="${info}"></p>
-</div>
+        <div th:replace="header::myHeader"></div>
+            <h2>PANEL ADMINISTRATORA</h2>
 
-<form th:action="@{/addRout}" method="post">
-    <input th:type="text" name="name" placeholder="Nazwa drogi">
-    <input th:type="text" name="rate" placeholder="Wycena drogi">
-    <select name="region">
-        <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
-                th:value="${region}" th:text="${region.name}"></option>
-    </select>
-    <input type="submit" value="Dodaj">
+        <div th:if="${info != null}">
+            <p th:text="${info}"></p>
+        </div>
 
-</form>
+        <div>
+            <h3>Dodaj drogę</h3>
+                <form th:action="@{/addRout}" method="post">
+                    <input th:type="text" name="name" placeholder="Nazwa drogi">
+                    <select name="region">
+                        <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
+                        th:value="${region}" th:text="${region.name}"></option>
+                    </select>
+                    <select name="rateName">
+                        <option th:each="rate : ${T(com.beatex.climbingDiary.model.Rate).values()}"
+                        th:value="${rate}" th:text="${rate.rateName}"></option>
+                    </select>
+
+                    <input type="submit" value="Dodaj drogę">
+                </form>
+        </div>
+
+        <div>
+            <h3>Usuń drogę</h3>
+                <form th:action="@{/delete}">
+                    <input type="text" placeholder="Nazwa drogi do usuniece" name="name">
+                    <input type="submit" value="usuń">
+                </form>
+        </div>
+
+        <div>
+            <h3>Usuń drogę z dziennika wspinacza</h3>
+            <form th:action="@{/delete2}">
+                <input type="text" placeholder="Id drogi do usuniece" name="id">
+                <input type="submit" value="usuń">
+            </form>
+        </div>
 
 
-<tr th:each="r : ${routs}">
-    <td th:text="${r.name}"></td>
-    <td th:text="${r.rate}"></td>
-    <td th:text="${r.region}"></td>
-</tr>
+        <table class="table table-sm">
+            <thead>
+                <th>Nazwa drogi</th>
+                <th>Region</th>
+                <th>Wycena</th>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${routs}">
+                    <td th:text="${r.name}"></td>
+                    <td th:text="${r.region}"></td>
+                    <td th:text="${r.rate.getRateName()}"></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <a th:href="@{/hello}" class="btn btn-primary">POWRóT</a>
+
+    </div>
 </body>
 </html>

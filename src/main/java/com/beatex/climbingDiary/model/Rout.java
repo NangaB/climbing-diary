@@ -2,7 +2,6 @@ package com.beatex.climbingDiary.model;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Rout {
 
@@ -18,6 +17,12 @@ public class Rout {
     private Rate rate;
 
     public Rout() {
+    }
+
+    private Rout(Builder builder){
+        name = builder.name;
+        region = builder.region;
+        rate = Rate.valueOf(builder.rateName);
     }
 
     public String getName() {
@@ -42,5 +47,39 @@ public class Rout {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public static class Builder{
+
+        private String name;
+        private Region region;
+        private String rateName;
+        private int points;
+
+        public Builder name(String name){
+            this.name = name;
+            return this;
+        }
+
+        public Builder region(Region region){
+            this.region = region;
+            return this;
+        }
+
+        public Builder rateName(String rate){
+            this.rateName = rate;
+            return this;
+        }
+
+        public Builder points(int points){
+            this.points = points;
+            return this;
+        }
+
+        public Rout build(){
+            return new Rout(this);
+        }
+
+
     }
 }

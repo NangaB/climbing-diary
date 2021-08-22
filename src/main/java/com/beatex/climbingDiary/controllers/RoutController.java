@@ -1,14 +1,10 @@
 package com.beatex.climbingDiary.controllers;
 
-import com.beatex.climbingDiary.model.Rout;
-import com.beatex.climbingDiary.service.ClimberService;
+import com.beatex.climbingDiary.dtos.RoutDto;
 import com.beatex.climbingDiary.service.RoutService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -20,17 +16,9 @@ public class RoutController {
         this.routService = routService;
     }
 
-    @GetMapping("/routs")
-    public String getAllRouts(Model model){
-        model.addAttribute("allRouts", routService.allRouts());
-        return "routs";
-    }
-
     //access only for admin
     @GetMapping("/addRout")
     public String addRout(Model model, @RequestParam(required = false) String info){
-        Rout rout = new Rout();
-        model.addAttribute("rout", rout);
         if(info != null){
             model.addAttribute("info", info);
         }
@@ -40,8 +28,22 @@ public class RoutController {
 
     //acces only for admin
     @PostMapping("/addRout")
-    public String addRout(@ModelAttribute Rout rout){
-        routService.addRout(rout);
-        return "redirect:/addRout?info=Dodano nową drogę w rejonie " + rout.getRegion();
+    public String addRout(@ModelAttribute RoutDto routDto){
+        routService.addRout(routDto);
+        return "redirect:/addRout?info=Dodano nowa droge w rejonie " + routDto.getRegion();
+    }
+
+    //acces only for admin
+    @GetMapping("/delete")
+    public String deletRout(@RequestParam String name){
+        routService.deleteRoutByName(name);
+        return "redirect:/addRout";
+    }
+
+    //acces only for admin
+    @GetMapping("/delete2")
+    public String deletRoutClimber(@RequestParam Long id){
+        routService.deleteRoutById(id);
+        return "redirect:/addRout";
     }
 }

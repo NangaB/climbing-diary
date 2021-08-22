@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ClimberController {
 
     @GetMapping("/routsForRegion")
     public String getRoutsByRegion(Region region){
-        return "redirect:/hello?region=" + region;
+        return "redirect:/hello?region=" + region +"&flag=true";
     }
 
     @PostMapping("/addRoutForClimber")
@@ -56,6 +57,11 @@ public class ClimberController {
         Long climberId = climberService.getClimberIdByPrincipal(principal);
         climberService.addRoutForClimber(climberId, rout);
         return "redirect:/hello";
+    }
+
+    @GetMapping("/update")
+    public String update(@RequestParam Long id){
+        return "redirect:/hello?id=" + id;
     }
 
 //    @GetMapping("/getRoutsForClimber") //almost not used

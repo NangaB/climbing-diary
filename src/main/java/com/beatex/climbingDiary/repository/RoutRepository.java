@@ -4,6 +4,7 @@ import com.beatex.climbingDiary.model.Rate;
 import com.beatex.climbingDiary.model.Region;
 import com.beatex.climbingDiary.model.Rout;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,13 @@ public interface RoutRepository extends JpaRepository<Rout, Long> {
 
     @Query(value = "select rate from Rout where name =:routName")
     Rate getRateByName(String routName);
+
+    @Modifying
+    @Query(value = "delete from Rout where name = :name")
+    void deleteRoutByName(String name);
+
+    @Modifying
+    int deleteRoutById(Long id);
+
 
 }
