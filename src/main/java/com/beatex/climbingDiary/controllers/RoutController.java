@@ -1,6 +1,7 @@
 package com.beatex.climbingDiary.controllers;
 
 import com.beatex.climbingDiary.dtos.RoutDto;
+import com.beatex.climbingDiary.service.RoutClimberService;
 import com.beatex.climbingDiary.service.RoutService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class RoutController {
 
     private RoutService routService;
+    private RoutClimberService routClimberService;
 
-    public RoutController(RoutService routService) {
+    public RoutController(RoutService routService, RoutClimberService routClimberService) {
         this.routService = routService;
+        this.routClimberService = routClimberService;
     }
 
     //access only for admin
@@ -40,10 +43,10 @@ public class RoutController {
         return "redirect:/addRout";
     }
 
-    //acces only for admin
+
     @GetMapping("/delete2")
     public String deletRoutClimber(@RequestParam Long id){
-        routService.deleteRoutById(id);
-        return "redirect:/addRout";
+        routClimberService.deleteRoutClimberById(id);
+        return "redirect:/hello";
     }
 }

@@ -15,22 +15,26 @@
 
         </div>
 
-        <div th:if="${error}">
-            Unable to login. Check your username and password.
-        </div>
+        <div class="box1">
         <h3>Jesteś tu pierwszy raz? Kliknij
             <a th:href="@{/register}">tutaj</a></h3><br>
 
         <br>
         <h3>Zaloguj się</h3>
-        <form th:action="@{/login}" method="post" id="loginForm">
+        <form th:action="@{/login}" method="post">
         <!--    login jest defaultowo w Springu - tak musi zostać, choć nie mam /login-->
-            <label for="username">Użytkownik: </label>
-            <input type="text" name="username" placeholder="" id="username">
+            <div>
+            <p>Użytkownik: </p>
+            <input th:type="text" name="username" value="o">
+            </div>
+            <div>
             <label for="password">Hasło: </label>
             <input type="password" name="password" placeholder="" id="password">
             <input type="submit" value="Login">
+            </div>
         </form>
+
+        </div>
 
     </div>
 </div>

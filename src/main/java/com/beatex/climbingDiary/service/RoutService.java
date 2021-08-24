@@ -33,7 +33,6 @@ public class RoutService {
     }
 
     public Rate getRateByRoutName(String routName){
-        System.out.println(routRepository.getRateByName(routName));
         return routRepository.getRateByName(routName);
     }
 

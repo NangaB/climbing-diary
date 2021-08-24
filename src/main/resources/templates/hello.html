@@ -21,7 +21,7 @@
             <p>Chcę dodać drogę którą przeszedłem</p>
                 <a class="btn btn-primary" th:href="@{/flag}">DODAJ</a>
 
-            <p>Pokaż mój dzinnik wspinaczkowy</p>
+            <p>Pokaż mój dziennik wspinaczkowy</p>
                 <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
 
             <p>Pokaż moje miejsce w rankingu</p>
@@ -58,7 +58,7 @@
                 <select name="name">
                     <option th:each="n : ${routsByRegion}" th:value="${n.name}" th:text="${n.name}"></option>
                 </select>
-<!--                <input type="text" name="info" placeholder="Wpisz swoje notatki">-->
+                <input type="text" name="info" placeholder="Wpisz swoje notatki">
                 <input type="submit" value="Dodaj drogę">
             </form>
             </div>
@@ -71,11 +71,12 @@
 
             <div style="display: none" id="showDiary">
                 <div th:unless="${#lists.isEmpty(routsClimber)}">
-                    <table>
+                    <table class="table table-sm">
                         <thead>
                             <th>Name</th>
                             <th>Rate</th>
                             <th>Region</th>
+                            <th>Info</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -83,33 +84,34 @@
                                 <td th:text="${r.name}"></td>
                                 <td th:text="${r.rate.getRateName()}"></td>
                                 <td th:text="${r.region}"></td>
+                                <td th:text="${r.info}"></td>
                                 <td>
-                                    <a th:href="@{/update(id=${r.id})}">Update</a>
+                                    <div class="d-grid gap-3">
+                                        <a th:href="@{/update(id=${r.id})}" class="btn btn-primary">Update</a>
+                                        <a th:href="@{/delete2(id=${r.id})}" class="btn btn-primary">Delete</a>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
 
             <div style="display: none" id="ranking">
-<!--                <div th:unless="${ranking.isEmpty()}">-->
-               <table>
+               <table class="table table-sm">
                    <thead>
                         <th>Numer</th>
                         <th>Imie wspinacza</th>
                         <th>Liczba punktów</th>
                    </thead>
                    <tbody>
-                        <tr th:each="entry, stat : ${ranking}">
+                        <tr th:each="c, stat : ${ranking}">
                             <td th:text="${stat.index + 1}">1</td>
-                            <td th:text="${entry.key}">Imie</td>
-                            <td th:text="${entry.value}">000</td>
+                            <td th:text="${c.name}">Imie</td>
+                            <td th:text="${c.points}">000</td>
                         </tr>
                    </tbody>
                </table>
-<!--                </div>-->
             </div>
         </div>
     </div>

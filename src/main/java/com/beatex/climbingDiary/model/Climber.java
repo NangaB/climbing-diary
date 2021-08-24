@@ -13,7 +13,7 @@ public class Climber {
 
     private String name;
 
-    private int age;
+    private int points;
 
 //    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "climber_id")
@@ -41,12 +41,12 @@ public class Climber {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public int getPoints() {
+        return points;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public List<RoutClimber> getRouts() {

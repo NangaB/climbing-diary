@@ -33,6 +33,19 @@ public class RankingService {
         return p.stream().reduce(0, Integer::sum);
     }
 
+    public void addPoints(Long climberId){
+        Climber climber = climberService.getClimberById(climberId);
+        int points = climber.getPoints();
+        List<RoutClimber> rc = climber.getRouts();
+        if(rc.isEmpty()){
+            climber.setPoints(points);
+        }else {
+            List<Integer> p = rc.stream().map(r -> r.getRate().getPoints()).collect(Collectors.toList());
+            points = p.stream().reduce(0, Integer::sum);
+            climber.setPoints(points);
+        }
+    }
+
     public Map<String, Integer> getRanking(){
         List<Climber> climbers = climberService.getAllClimbers();
         List<Integer> points = climbers.stream().map(c->getPoints(c.getId())).collect(Collectors.toList());

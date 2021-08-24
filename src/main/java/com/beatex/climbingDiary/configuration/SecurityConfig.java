@@ -72,22 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").authenticated()
-                .antMatchers("/addRout").hasRole("ADMIN")
-//                .antMatchers("/for-admin").hasRole("ADMIN")
+                .antMatchers("/addRout", "/delete").hasRole("ADMIN")
                 .anyRequest().permitAll()
-
-//                .loginPage("/login")
                 .and()
                 .formLogin().defaultSuccessUrl("/hello") // to się wyświetla po zalogowaniu
                 .failureForwardUrl("/login");
-
-
-//                .authorizeRequests()
-//                .antMatchers("**/secured/**")
-//                .hasRole("ADMIN")
-//                .anyRequest().permitAll()
-//                .and()
-//                .formLogin().permitAll();
     }
 
     @Bean

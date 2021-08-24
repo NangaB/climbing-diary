@@ -49,6 +49,7 @@ public class RegistrationController {
         //every user is a climber - creating climber
         Climber climber = new Climber();
         climber.setName(user.getUsername());
+        climber.setPoints(0);
         climberService.addClimber(climber);
         return "redirect:/login";
     }
@@ -77,8 +78,8 @@ public class RegistrationController {
         RoutClimber routClimber = routClimberService.findRoutById(id);
         model.addAttribute("updated", routClimber);
 
-        Map<String, Integer> rankingByName = rankingService.getRanking();
-        model.addAttribute("ranking", rankingByName);
+        List<Climber> ranking = climberService.getRanking();
+        model.addAttribute("ranking", ranking);
 
         return "hello";
     }

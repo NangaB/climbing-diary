@@ -21,7 +21,8 @@ public class RoutClimber{
 
     private String info;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "climber_rout",
             joinColumns = @JoinColumn(name = "routClimber_id"),
             inverseJoinColumns = @JoinColumn(name = "climber_id"))
@@ -69,4 +70,5 @@ public class RoutClimber{
     public void setRegion(Region region) {
         this.region = region;
     }
+
 }

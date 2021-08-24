@@ -22,11 +22,13 @@ public class ClimberController {
     private ClimberService climberService;
     private RoutService routService;
     private RoutClimberService routClimberService;
+    private RankingService rankingService;
 
-    public ClimberController(ClimberService climberService, RoutClimberService routClimberService, RoutService routService) {
+    public ClimberController(ClimberService climberService, RoutClimberService routClimberService, RoutService routService, RankingService rankingService) {
         this.climberService = climberService;
         this.routService = routService;
         this.routClimberService = routClimberService;
+        this.rankingService = rankingService;
     }
 
     //access only for ADMIN
@@ -53,7 +55,6 @@ public class ClimberController {
         Rate rate = routService.getRateByRoutName(rout.getName());
         rout.setRate(rate);
         routClimberService.addRoutClimber(rout);
-
         Long climberId = climberService.getClimberIdByPrincipal(principal);
         climberService.addRoutForClimber(climberId, rout);
         return "redirect:/hello";
@@ -63,20 +64,5 @@ public class ClimberController {
     public String update(@RequestParam Long id){
         return "redirect:/hello?id=" + id;
     }
-
-//    @GetMapping("/getRoutsForClimber") //almost not used
-//    public String getRoutsForClimber(Model model, Principal principal){
-//        Long climberId = climberService.getClimberIdByPrincipal(principal);
-//        List<RoutClimber> rc = climberService.getAllRoutsForClimber(climberId);
-//        model.addAttribute("climberRouts", rc);
-//        return "redirect:/hello";
-//    }
-
-//    @GetMapping("/getRanking") //almost not used
-//    public String getRanking(Model model){
-//        Map<String, Integer> ranking = rankingService.getRanking();
-//        model.addAttribute("ranking", ranking);
-//        return "redirect:/hello";
-//    }
 
 }
