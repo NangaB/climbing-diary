@@ -23,39 +23,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("buzz")
-//                    .password("aa")
-//                    .authorities("ROLE_USER")
-//                .and()
-//                .withUser("wood")
-//                    .password("bb")
-//                    .authorities("ROLE_USER");
-//    }
-
-
-//    @Autowired
-//    DataSource dataSource;
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery(
-//                        "select username, password, enabled from Users " + "where username=?")
-//                .authoritiesByUsernameQuery(
-//                        "select username, authority from UserAuthoriteis " + "where username=?")
-//                .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
-//    }
-
-//    @Qualifier("userRepositoryUserDetailService")
-//    @Autowired
-//    UserDetailsService userDetailsService;
-
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
@@ -72,11 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").authenticated()
-                .antMatchers("/addRout", "/delete").hasRole("ADMIN")
+                .antMatchers("/addRout", "/delete", "/getAllClimbers", "/deleteClimber").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().defaultSuccessUrl("/hello") // to się wyświetla po zalogowaniu
-                .failureForwardUrl("/login");
+                .formLogin().defaultSuccessUrl("/hello");
+//                .failureForwardUrl("/login");
     }
 
     @Bean

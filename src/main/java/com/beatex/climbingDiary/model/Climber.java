@@ -15,15 +15,8 @@ public class Climber {
 
     private int points;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "climber_id")
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "climber_rout",
-    joinColumns = @JoinColumn(name = "climber_id"),
-    inverseJoinColumns = @JoinColumn(name = "routClimber_id"))
+    @OneToMany(mappedBy = "climber", cascade = CascadeType.ALL)
     private List<RoutClimber> routs = new ArrayList<>();
-
 
     public Long getId() {
         return id;
@@ -59,5 +52,6 @@ public class Climber {
 
     public void addRout(RoutClimber rout){
         routs.add(rout);
+        rout.setClimber(this);
     }
 }

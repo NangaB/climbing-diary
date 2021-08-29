@@ -3,8 +3,10 @@ package com.beatex.climbingDiary.service;
 import com.beatex.climbingDiary.model.Climber;
 import com.beatex.climbingDiary.model.RoutClimber;
 import com.beatex.climbingDiary.repository.ClimberRepository;
+import com.beatex.climbingDiary.repository.RoutClimberRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class ClimberService {
 
     private final ClimberRepository climberRepository;
+    private final RoutClimberRepository routClimberRepository;
 
-    public ClimberService(ClimberRepository climberRepository) {
+    public ClimberService(ClimberRepository climberRepository, RoutClimberRepository routClimberRepository) {
         this.climberRepository = climberRepository;
+        this.routClimberRepository = routClimberRepository;
     }
 
     public List<Climber> getAllClimbers(){
@@ -22,7 +26,7 @@ public class ClimberService {
     }
 
     public List<RoutClimber> getAllRoutsForClimber(Long climberId){
-        return climberRepository.getClimberById(climberId).getRouts();
+         return climberRepository.getClimberById(climberId).getRouts();
         //todo poprawić bo jak rzuca null to wywala applikację
     }
 
@@ -30,9 +34,6 @@ public class ClimberService {
         climberRepository.save(climber);
     }
 
-    public Climber getClimberByName(String name){
-        return climberRepository.getClimberByName(name);
-    }
 
     public Climber getClimberById(Long id){
         return climberRepository.getClimberById(id);
@@ -46,8 +47,9 @@ public class ClimberService {
         Climber climber = climberRepository.getClimberById(climberId);
         int points = getSumePointsForClimber(climberId) + rout.getRate().getPoints();
         climber.setPoints(points);
-        climber.addRout(rout);
         climberRepository.save(climber);
+        rout.setClimber(climber);
+        routClimberRepository.save(rout);
     }
 
     public int getSumePointsForClimber(Long climberId){
@@ -57,6 +59,11 @@ public class ClimberService {
 
     public List<Climber> getRanking(){
         return climberRepository.getAllClimbersSorted();
+    }
+
+    @Transactional
+    public void deleteClimber(Long id){
+        climberRepository.deleteClimber(id);
     }
 }
 

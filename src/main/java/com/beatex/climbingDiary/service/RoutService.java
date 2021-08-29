@@ -44,9 +44,4 @@ public class RoutService {
     public void deleteRoutByName(String name){
         routRepository.deleteRoutByName(name);
     }
-
-    @Transactional
-    public int deleteRoutById(Long id){
-        return routRepository.deleteRoutById(id);
-    }
 }

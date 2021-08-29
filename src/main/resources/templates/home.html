@@ -22,10 +22,9 @@
         <br>
         <h3>Zaloguj się</h3>
         <form th:action="@{/login}" method="post">
-        <!--    login jest defaultowo w Springu - tak musi zostać, choć nie mam /login-->
             <div>
             <p>Użytkownik: </p>
-            <input th:type="text" name="username" value="o">
+            <input th:type="text" name="username" value="">
             </div>
             <div>
             <label for="password">Hasło: </label>

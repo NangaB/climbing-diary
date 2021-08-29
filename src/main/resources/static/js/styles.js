@@ -1,23 +1,13 @@
-function showSth1() {
-    var x = document.getElementById('addForm');
-    if(x.style.display === 'none'){
-        x.style.display = 'block'; // tj. właściwości elementu
-    }
-    // else {
-    //     x.style.display = 'none'; // tj. znika
-    // }
-}
-
-function showSth2() {
+function showDiary() {
     var x = document.getElementById('showDiary');
     if(x.style.display === 'none'){
-        x.style.display = 'block'; // tj. właściwości elementu
+        x.style.display = 'block';
     } else {
-        x.style.display = 'none'; // tj. znika
+        x.style.display = 'none';
     }
 }
 
-function showSth3() {
+function showRanking() {
     var x = document.getElementById('ranking');
     if(x.style.display === 'none'){
         x.style.display = 'block';
@@ -25,3 +15,5 @@ function showSth3() {
         x.style.display = 'none';
     }
 }
+
+

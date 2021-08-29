@@ -1,8 +1,7 @@
 package com.beatex.climbingDiary.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 public class RoutClimber{
@@ -21,12 +20,16 @@ public class RoutClimber{
 
     private String info;
 
+    @ManyToOne
+    @JoinColumn(name = "climber_id")
+    private Climber climber;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "climber_rout",
-            joinColumns = @JoinColumn(name = "routClimber_id"),
-            inverseJoinColumns = @JoinColumn(name = "climber_id"))
-    private List<Climber> climber = new ArrayList<>();
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "climber_rout",
+//            joinColumns = @JoinColumn(name = "routClimber_id"),
+//            inverseJoinColumns = @JoinColumn(name = "climber_id"))
+//    private List<Climber> climber = new ArrayList<>();
 
     public RoutClimber() {
     }
@@ -71,4 +74,11 @@ public class RoutClimber{
         this.region = region;
     }
 
+    public Climber getClimber() {
+        return climber;
+    }
+
+    public void setClimber(Climber climber) {
+        this.climber = climber;
+    }
 }

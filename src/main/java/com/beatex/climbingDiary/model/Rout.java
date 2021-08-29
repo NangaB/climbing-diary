@@ -54,7 +54,6 @@ public class Rout {
         private String name;
         private Region region;
         private String rateName;
-        private int points;
 
         public Builder name(String name){
             this.name = name;
@@ -68,11 +67,6 @@ public class Rout {
 
         public Builder rateName(String rate){
             this.rateName = rate;
-            return this;
-        }
-
-        public Builder points(int points){
-            this.points = points;
             return this;
         }
 

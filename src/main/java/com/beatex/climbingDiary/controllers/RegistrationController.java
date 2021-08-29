@@ -2,18 +2,17 @@ package com.beatex.climbingDiary.controllers;
 
 import com.beatex.climbingDiary.model.*;
 import com.beatex.climbingDiary.service.*;
-import org.hibernate.dialect.Ingres9Dialect;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class RegistrationController {
@@ -45,6 +44,9 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String processRegistration(@ModelAttribute User user){
+        if(userService.getAllUsers().contains(user.getUsername())){
+            return "registration";
+        }
         userService.addUser(user);
         //every user is a climber - creating climber
         Climber climber = new Climber();
@@ -62,12 +64,13 @@ public class RegistrationController {
 
     @GetMapping("/hello")
     public String hello(Model model, Principal principal, @RequestParam(required = false) Region region,
-                        @RequestParam(required = false) Long id, @RequestParam (required = false) Boolean flag){
+                        @RequestParam(required = false) Long id, @RequestParam (required = false) Boolean flag, @RequestParam(required = false) Boolean flag2){
         Role role = userService.getRole(principal.getName());
         model.addAttribute("role", role.getRole());
         model.addAttribute("name", principal.getName());
 
         model.addAttribute("flag", flag);
+        model.addAttribute("flag2", flag2);
         model.addAttribute("region", region);
         model.addAttribute("routsByRegion", routService.getRoutsByRegion(region));
 

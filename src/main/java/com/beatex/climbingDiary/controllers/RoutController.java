@@ -29,24 +29,18 @@ public class RoutController {
         return "routs";
     }
 
-    //acces only for admin
+    //access only for admin
     @PostMapping("/addRout")
     public String addRout(@ModelAttribute RoutDto routDto){
         routService.addRout(routDto);
         return "redirect:/addRout?info=Dodano nowa droge w rejonie " + routDto.getRegion();
     }
 
-    //acces only for admin
+    //access only for admin
     @GetMapping("/delete")
     public String deletRout(@RequestParam String name){
         routService.deleteRoutByName(name);
         return "redirect:/addRout";
     }
 
-
-    @GetMapping("/delete2")
-    public String deletRoutClimber(@RequestParam Long id){
-        routClimberService.deleteRoutClimberById(id);
-        return "redirect:/hello";
-    }
 }

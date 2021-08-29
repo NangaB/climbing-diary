@@ -22,8 +22,7 @@ public interface RoutRepository extends JpaRepository<Rout, Long> {
     @Query(value = "delete from Rout where name = :name")
     void deleteRoutByName(String name);
 
-    @Modifying
-    int deleteRoutById(Long id);
+
 
 
 }

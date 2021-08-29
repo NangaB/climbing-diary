@@ -22,10 +22,10 @@
                 <a class="btn btn-primary" th:href="@{/flag}">DODAJ</a>
 
             <p>Pokaż mój dziennik wspinaczkowy</p>
-                <button class="btn btn-primary" onclick="showSth2()">POKAŻ</button>
+                <button class="btn btn-primary" onclick="showDiary()">POKAŻ</button>
 
             <p>Pokaż moje miejsce w rankingu</p>
-                <button class="btn btn-primary" onclick="showSth3()">POKAŻ</button>
+                <button class="btn btn-primary" onclick="showRanking()">POKAŻ</button>
             <br>
             <div th:if="${role == 'ADMIN'}">
                 <p>Dodaj nową drogę do zestawienia</p>
@@ -39,45 +39,47 @@
         </div>
         <div class="box2">
             <div th:if="${flag}">
-            <div id="addForm">
                 <h2>Dodaj drogę</h2>
-            <form th:action="@{/routsForRegion}">
-                <select name="region">
-                    <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
+                    <form th:action="@{/routsForRegion}">
+                        <select name="region">
+                            <option th:each="region : ${T(com.beatex.climbingDiary.model.Region).values()}"
                             th:value="${region}" th:text="${region.name}"></option>
-                </select>
-                <input type="submit" value="Wybierz drogi w regionie">
-            </form>
+                        </select>
+                        <input type="submit" value="Wybierz drogi w regionie">
+                    </form>
             </div>
-
-<!--            <div id="addForm2" style="display:none">-->
-            <form th:action="@{/addRoutForClimber}" method="post">
-                <p>Droga do dodania: </p>
-                <input type="hidden" name="region" th:value="${region}">
-                <p th:text="${region}"></p>
-                <select name="name">
-                    <option th:each="n : ${routsByRegion}" th:value="${n.name}" th:text="${n.name}"></option>
-                </select>
-                <input type="text" name="info" placeholder="Wpisz swoje notatki">
-                <input type="submit" value="Dodaj drogę">
-            </form>
+            <div th:if="${flag2}">
+                    <form th:action="@{/addRoutForClimber}" method="post">
+                        <br>
+                        <div th:if="${#lists.isEmpty(routsByRegion)}">
+                            <p>Brak dróg w tym rejonie <span th:text="${region}"></span>, wybierz inny</p>
+                        </div>
+                        <div th:unless="${#lists.isEmpty(routsByRegion)}">
+                            <p>Droga do dodania w rejonie:
+                                <input type="hidden" name="region" th:value="${region}">
+                                <span th:text="${region}"></span>
+                            </p>
+                            <select name="name">
+                                <option th:each="n : ${routsByRegion}" th:value="${n.name}" th:text="${n.name}"></option>
+                            </select>
+                            <input type="text" name="info" placeholder="Wpisz swoje notatki">
+                            <input type="submit" value="Dodaj drogę">
+                        </div>
+                    </form>
             </div>
-
-            <div th:if="${rout != null}">
-            <h3>Dodano drogę</h3>
-            </div>
-            </div>
-
 
             <div style="display: none" id="showDiary">
+                <div th:if="${#lists.isEmpty(routsClimber)}">
+                    <p>Wspinaczu, nie wprowadziłeś jeszcze żadnej drogi</p>
+                </div>
                 <div th:unless="${#lists.isEmpty(routsClimber)}">
                     <table class="table table-sm">
                         <thead>
-                            <th>Name</th>
-                            <th>Rate</th>
+                            <th>Nazwa</th>
+                            <th>Wycena</th>
                             <th>Region</th>
                             <th>Info</th>
-                            <th>Action</th>
+                            <th>Akcja</th>
                         </thead>
                         <tbody>
                             <tr th:each="r : ${routsClimber}">
@@ -87,8 +89,7 @@
                                 <td th:text="${r.info}"></td>
                                 <td>
                                     <div class="d-grid gap-3">
-                                        <a th:href="@{/update(id=${r.id})}" class="btn btn-primary">Update</a>
-                                        <a th:href="@{/delete2(id=${r.id})}" class="btn btn-primary">Delete</a>
+                                        <a th:href="@{/deleteRout(id=${r.id})}" class="btn btn-primary">Usuń</a>
                                     </div>
                                 </td>
                             </tr>
