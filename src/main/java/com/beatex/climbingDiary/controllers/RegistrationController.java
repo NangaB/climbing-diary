@@ -4,8 +4,6 @@ import com.beatex.climbingDiary.model.*;
 import com.beatex.climbingDiary.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +19,11 @@ public class RegistrationController {
     private ClimberService climberService;
     private RoutService routService;
     private RoutClimberService routClimberService;
-    private RankingService rankingService;
 
-    public RegistrationController(UserService userService, ClimberService climberService, RoutService routService, RankingService rankingService, RoutClimberService routClimberService) {
+    public RegistrationController(UserService userService, ClimberService climberService, RoutService routService, RoutClimberService routClimberService) {
         this.userService = userService;
         this.climberService = climberService;
         this.routService = routService;
-        this.rankingService = rankingService;
         this.routClimberService = routClimberService;
     }
 
@@ -68,7 +64,6 @@ public class RegistrationController {
         Role role = userService.getRole(principal.getName());
         model.addAttribute("role", role.getRole());
         model.addAttribute("name", principal.getName());
-
         model.addAttribute("flag", flag);
         model.addAttribute("flag2", flag2);
         model.addAttribute("region", region);
@@ -77,9 +72,6 @@ public class RegistrationController {
         Long climberId = climberService.getClimberIdByPrincipal(principal);
         List<RoutClimber> routList = climberService.getAllRoutsForClimber(climberId);
         model.addAttribute("routsClimber", routList);
-
-        RoutClimber routClimber = routClimberService.findRoutById(id);
-        model.addAttribute("updated", routClimber);
 
         List<Climber> ranking = climberService.getRanking();
         model.addAttribute("ranking", ranking);

@@ -57,6 +57,7 @@ public class ClimberController {
         return "redirect:/hello";
     }
 
+    //access only for admin
     @GetMapping("/deleteClimber")
     public String deleteClimber(@RequestParam Long id){
         climberService.deleteClimber(id);

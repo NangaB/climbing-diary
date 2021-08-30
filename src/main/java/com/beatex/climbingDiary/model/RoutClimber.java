@@ -24,13 +24,6 @@ public class RoutClimber{
     @JoinColumn(name = "climber_id")
     private Climber climber;
 
-
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "climber_rout",
-//            joinColumns = @JoinColumn(name = "routClimber_id"),
-//            inverseJoinColumns = @JoinColumn(name = "climber_id"))
-//    private List<Climber> climber = new ArrayList<>();
-
     public RoutClimber() {
     }
 

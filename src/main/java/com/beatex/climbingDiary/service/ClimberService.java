@@ -27,7 +27,6 @@ public class ClimberService {
 
     public List<RoutClimber> getAllRoutsForClimber(Long climberId){
          return climberRepository.getClimberById(climberId).getRouts();
-        //todo poprawić bo jak rzuca null to wywala applikację
     }
 
     public void addClimber(Climber climber){

@@ -4,7 +4,6 @@ import com.beatex.climbingDiary.dtos.RoutDto;
 import com.beatex.climbingDiary.model.Rate;
 import com.beatex.climbingDiary.model.Region;
 import com.beatex.climbingDiary.model.Rout;
-import com.beatex.climbingDiary.repository.ClimberRepository;
 import com.beatex.climbingDiary.repository.RoutRepository;
 import com.beatex.climbingDiary.utils.RoutMapper;
 import org.springframework.stereotype.Service;

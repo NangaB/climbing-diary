@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().defaultSuccessUrl("/hello");
-//                .failureForwardUrl("/login");
     }
 
     @Bean
