@@ -42,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/addRout", "/delete", "/getAllClimbers", "/deleteClimber").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().defaultSuccessUrl("/hello");
+                .formLogin().defaultSuccessUrl("/hello")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/home");
     }
 
     @Bean

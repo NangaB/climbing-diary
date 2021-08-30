@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
+
 
 @Controller
 public class ClimberController {
@@ -19,14 +18,12 @@ public class ClimberController {
     private ClimberService climberService;
     private RoutService routService;
     private RoutClimberService routClimberService;
-    private RankingService rankingService;
     private UserService userService;
 
-    public ClimberController(ClimberService climberService, RoutClimberService routClimberService, RoutService routService, RankingService rankingService, UserService userService) {
+    public ClimberController(ClimberService climberService, RoutClimberService routClimberService, RoutService routService, UserService userService) {
         this.climberService = climberService;
         this.routService = routService;
         this.routClimberService = routClimberService;
-        this.rankingService = rankingService;
         this.userService = userService;
     }
 
