@@ -1,7 +1,7 @@
 # climbing-diary
 Aplikacja do prowadzenie zapisu przejść skalnych dla wspinaczy - "Dziennik Wspinaczkowy".
 
-- użyte technologie: Java, Spring Boot, Spring Security, Hibernate, Thymeleaf, JavaScript, BootStrap
+- użyte technologie: Java, Spring Boot, Spring Security, Hibernate, Thymeleaf, JavaScript, Bootstrap
 
 Działanie:
 - start: /home
